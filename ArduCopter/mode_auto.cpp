@@ -65,7 +65,7 @@ bool ModeAuto::init(bool ignore_checks)
 }
 
 
-
+// hold the last location
 bool ModeAuto::holdLastLocationOnMission(){
         auto current_wp_lat=mission.get_current_nav_cmd().content.location.alt;
 
