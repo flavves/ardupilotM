@@ -518,6 +518,10 @@
  # define PILOT_ACCEL_Z_DEFAULT 250 // vertical acceleration in cm/s/s while altitude is under pilot control
 #endif
 
+#ifndef MISSION_LAST_W_DEFAULT
+ # define MISSION_LAST_W_DEFAULT 0 // Default starting point
+#endif
+
 #ifndef PILOT_Y_RATE_DEFAULT
  # define PILOT_Y_RATE_DEFAULT  202.5   // yaw rotation rate parameter default in deg/s for all mode except ACRO
 #endif

@@ -39,7 +39,7 @@
 #define AP_MISSION_CMD_ID_NONE              0       // mavlink cmd id of zero means invalid or missing command
 #define AP_MISSION_CMD_INDEX_NONE           65535   // command index of 65535 means invalid or missing command
 #define AP_MISSION_JUMP_TIMES_MAX           32767   // maximum number of times a jump can be executed.  Used when jump tracking fails (i.e. when too many jumps in mission)
-
+#define AP_MISSION_LASTMISSIONINDEX_DEFAULT         0
 #define AP_MISSION_FIRST_REAL_COMMAND       1       // command #0 reserved to hold home position
 
 #define AP_MISSION_RESTART_DEFAULT          0       // resume the mission from the last command run by default
@@ -839,7 +839,7 @@ private:
     AP_Int16                _cmd_total;  // total number of commands in the mission
     AP_Int16                _options;    // bitmask options for missions, currently for mission clearing on reboot but can be expanded as required
     AP_Int8                 _restart;   // controls mission starting point when entering Auto mode (either restart from beginning of mission or resume from last command run)
-
+    AP_Int16                _lastMissionIndex;  // hold the last waypoint 
     // internal variables
     bool                    _force_resume;  // when set true it forces mission to resume irrespective of MIS_RESTART param.
     uint16_t                _repeat_dist; // Distance to repeat on mission resume (m), can be set with MAV_CMD_DO_SET_RESUME_REPEAT_DIST

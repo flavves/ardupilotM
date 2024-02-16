@@ -9,7 +9,7 @@
 #include <AP_Gripper/AP_Gripper_config.h>
 #include <AP_Vehicle/AP_Vehicle_Type.h>
 #include <AP_BoardConfig/AP_BoardConfig.h>
-
+#include <AP_Param/AP_Param.h>
 const AP_Param::GroupInfo AP_Mission::var_info[] = {
 
     // @Param: TOTAL
@@ -108,6 +108,18 @@ void AP_Mission::start()
         // on failure set mission complete
         complete();
     }
+
+    float value;
+    bool success = AP_Param::get("MISSION_LAST_W", value);
+    if (success) {
+    set_current_cmd(value);    
+    //value+=5.2;
+    //AP_Param::set_and_save_by_name("MISSION_LAST_W", value);
+    } else {
+        set_current_cmd(0);
+    }
+
+
 }
 
 /// stop - stops mission execution.  subsequent calls to update() will have no effect until the mission is started or resumed
@@ -227,6 +239,7 @@ bool AP_Mission::starts_with_takeoff_cmd()
 */
 bool AP_Mission::continue_after_land_check_for_takeoff()
 {
+    return true;
     if (!continue_after_land()) {
         return false;
     }
@@ -282,6 +295,16 @@ bool AP_Mission::clear()
     _flags.do_cmd_loaded = false;
 
     // return success
+
+    //set zero starting point
+    float value;
+    bool success = AP_Param::get("MISSION_LAST_W", value);
+    if (success) {
+    AP_Param::set_and_save_by_name("MISSION_LAST_W", 0);
+    } else {
+        //cannot found parameter
+    }
+
     return true;
 }
 
@@ -899,7 +922,7 @@ bool AP_Mission::write_cmd_to_storage(uint16_t index, const Mission_Command& cmd
     }
 
     // remember when the mission last changed
-    _last_change_time_ms = AP_HAL::millis();
+    //_last_change_time_ms = AP_HAL::millis();
 
     // return success
     return true;

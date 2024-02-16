@@ -85,6 +85,7 @@ bool ModeAuto::holdLastLocationOnMission(){
             return false;
         }else{
             mission.set_current_cmd(index_hold_location);
+            AP_Param::set_and_save_by_name("MISSION_LAST_W", index_hold_location);
             //gcs().send_text(MAV_SEVERITY_CRITICAL, "waypoint succusfuly setted!"); 
             return true;           
         }
