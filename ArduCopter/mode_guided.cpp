@@ -35,6 +35,7 @@ struct Guided_Limit {
 // init - initialise guided controller
 bool ModeGuided::init(bool ignore_checks)
 {
+    //gcs().send_text(MAV_SEVERITY_ALERT, "Guided init BATUHAN");    
     // start in velaccel control mode
     velaccel_control_start();
     guided_vel_target_cms.zero();
@@ -51,6 +52,9 @@ bool ModeGuided::init(bool ignore_checks)
 // should be called at 100hz or more
 void ModeGuided::run()
 {
+    
+    //gcs().send_text(MAV_SEVERITY_ALERT, "Guided crazy BATUHAN");  
+
     // run pause control if the vehicle is paused
     if (_paused) {
         pause_control_run();
@@ -62,12 +66,15 @@ void ModeGuided::run()
 
     case SubMode::TakeOff:
         // run takeoff controller
+        //gcs().send_text(MAV_SEVERITY_ALERT, "Guided TakeOff BATUHAN");    
         takeoff_run();
         break;
 
     case SubMode::WP:
         // run waypoint controller
+        //gcs().send_text(MAV_SEVERITY_ALERT, "Guided WP BATUHAN");    
         wp_control_run();
+        send_notification=true;
         if (send_notification && wp_nav->reached_wp_destination()) {
             send_notification = false;
             gcs().send_mission_item_reached_message(0);
@@ -76,22 +83,27 @@ void ModeGuided::run()
 
     case SubMode::Pos:
         // run position controller
+        //gcs().send_text(MAV_SEVERITY_ALERT, "Guided Pos BATUHAN");    
         pos_control_run();
         break;
 
     case SubMode::Accel:
+        //gcs().send_text(MAV_SEVERITY_ALERT, "Guided Accel BATUHAN");    
         accel_control_run();
         break;
 
     case SubMode::VelAccel:
+        //gcs().send_text(MAV_SEVERITY_ALERT, "Guided VelAccel BATUHAN");   
         velaccel_control_run();
         break;
 
     case SubMode::PosVelAccel:
+        //gcs().send_text(MAV_SEVERITY_ALERT, "Guided PosVelAccel BATUHAN");   
         posvelaccel_control_run();
         break;
 
     case SubMode::Angle:
+        //gcs().send_text(MAV_SEVERITY_ALERT, "Guided Angle BATUHAN");   
         angle_control_run();
         break;
     }
@@ -185,6 +197,7 @@ void ModeGuided::wp_control_start()
 // run guided mode's waypoint navigation controller
 void ModeGuided::wp_control_run()
 {
+    
     // if not armed set throttle to zero and exit immediately
     if (is_disarmed_or_landed()) {
         // do not spool down tradheli when on the ground with motor interlock enabled

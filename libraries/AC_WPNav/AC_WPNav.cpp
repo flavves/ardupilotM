@@ -587,6 +587,7 @@ int32_t AC_WPNav::get_wp_bearing_to_destination() const
 /// update_wpnav - run the wp controller - should be called at 100hz or higher
 bool AC_WPNav::update_wpnav()
 {
+
     bool ret = true;
 
     // check for changes in speed parameter values

@@ -58,6 +58,7 @@ bool AP_Mission_ChangeDetector::check_for_mission_change()
     // mission has changed if upcoming command contents have changed without the current command index changing
 
     //set Params mission start index 0
+    /*
     if(update_time_changed){
         float value;
         bool success = AP_Param::get("MISSION_LAST_W", value);
@@ -66,7 +67,8 @@ bool AP_Mission_ChangeDetector::check_for_mission_change()
         } else {
             //cannot found parameter
         }
-    }
+    }*/
+    //BURASI BİZİM İCİN SORUN OLCAK YER BURASI İÇİN AÇ KAPA YAPINCA 0 YAPIYOR
 
     return cmds_changed && !curr_cmd_idx_changed;
 }
