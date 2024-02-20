@@ -922,7 +922,7 @@ bool AP_Mission::write_cmd_to_storage(uint16_t index, const Mission_Command& cmd
     }
 
     // remember when the mission last changed
-    //_last_change_time_ms = AP_HAL::millis();
+    _last_change_time_ms = AP_HAL::millis();
 
     // return success
     return true;
